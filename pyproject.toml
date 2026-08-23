@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ctf-payload-studio"
+version = "4.0.0"
+description = "Offline, bounded and explainable payload-text analysis studio for defensive CTF learning"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "Muhammet0-1"}]
+keywords = ["ctf", "payload-analysis", "encoding", "defensive-security", "sarif"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Education",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+]
+dependencies = []
+
+[project.optional-dependencies]
+gui = ["PyQt5>=5.15,<6"]
+dev = [
+  "build>=1.2,<2",
+  "mypy>=1.15,<2",
+  "PyQt5>=5.15,<6",
+  "pytest>=8.3,<9",
+  "ruff>=0.11,<1",
+  "setuptools>=77",
+]
+
+[project.scripts]
+payload-studio = "ctf_payload_studio.cli:main"
+payload-studio-gui = "ctf_payload_studio.gui_main:main"
+
+[project.urls]
+Homepage = "https://github.com/Muhammet0-1/CTF-Payload-Studio"
+Issues = "https://github.com/Muhammet0-1/CTF-Payload-Studio/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ctf_payload_studio = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF", "SIM"]
+allowed-confusables = ["ı"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = ["src/ctf_payload_studio", "tests", "tools"]
+exclude = ["src/ctf_payload_studio/gui.py"]
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
